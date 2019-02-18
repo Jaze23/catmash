@@ -4,5 +4,6 @@ namespace CatMash.Models
     {
         public string Id { get; set; }
         public string Url { get; set; }
+        public int NbrOfVotes { get; set; } = 0;
     }
 }

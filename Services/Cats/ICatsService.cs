@@ -6,6 +6,8 @@ namespace CatMash.Services.Cats
     public interface ICatsService
     {
         void PopulateCats();
-        IEnumerable<Cat> GetAll();
+        IEnumerable<Cat> GetAllOrdered();
+        IEnumerable<Cat> GetVersus();
+        void VoteForCat(string id);
     }
 }

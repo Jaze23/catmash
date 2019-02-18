@@ -31,12 +31,8 @@ namespace CatMash.Services
                 CREATE TABLE IF NOT EXISTS Cats(
                 Id Varchar,
                 Url Varchar,
-                UNIQUE(Id)
-                );
-                CREATE TABLE IF NOT EXISTS Votes(
-                CatId Varchar,
                 NbrOfVotes int,
-                UNIQUE(CatId)
+                UNIQUE(Id)
                 );
             ";
             using (var connection = GetConnection())

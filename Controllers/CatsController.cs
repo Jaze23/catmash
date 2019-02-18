@@ -17,10 +17,22 @@ namespace CatMash.Controllers
         }
         
         [HttpGet]
-        public ActionResult<IEnumerable<Cat>> GetAll()
+        public ActionResult<IEnumerable<CatResult>> GetAll()
         {
-            var list = _catsService.GetAll();
+            var list = _catsService.GetAllOrdered();
             return Ok(list);
+        }
+
+        [HttpGet("versus")]
+        public ActionResult<IEnumerable<Cat>> GetVersus(){
+            var list = _catsService.GetVersus();
+            return Ok(list);
+        }
+
+        [HttpPut("vote/{id}")]
+        public ActionResult Vote(string id){
+            _catsService.VoteForCat(id);
+            return Ok();
         }
     }
 }

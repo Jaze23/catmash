@@ -7,5 +7,6 @@ namespace CatMash.Repositories.Cats
     {
         IEnumerable<Cat> GetAllCats();
         void InsertIfDoesNotExistCat(Cat cat);
+        void VoteForCat(string id);
     }
 }
