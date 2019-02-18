@@ -5,11 +5,11 @@ import { VoteComponent } from './Vote/vote.component';
 
 const routes: Routes = [
   {
-    path: '/',
+    path: '',
     component: ResultsComponent
   },
   {
-    path: '/vote',
+    path: 'vote',
     component: VoteComponent
   }
 ];
