@@ -1,3 +1,4 @@
+using CatMash.Repositories.Cats;
 using CatMash.Services;
 using CatMash.Services.Cats;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +23,9 @@ namespace CatMash
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+            services.AddTransient<IDbService, DbService>();
+            services.AddTransient<ICatsRepository, CatsRepository>();
             services.AddTransient<ICatsService, CatsService>();
 
 
@@ -37,6 +41,11 @@ namespace CatMash
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //Populate DB
+            var dbService = app.ApplicationServices.GetService<IDbService>();
+            dbService.CreateTables();
+            dbService.PopulateDatabase();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

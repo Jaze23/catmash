@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CatMash.Models;
+using CatMash.Services.Cats;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CatMash.Controllers
@@ -10,10 +11,15 @@ namespace CatMash.Controllers
     [Route("api/[controller]")]
     public class CatsController : Controller
     {
+        private readonly ICatsService _catsService;
+        public CatsController(ICatsService catsService){
+            _catsService = catsService;
+        }
+        
         [HttpGet]
         public ActionResult<IEnumerable<Cat>> GetAll()
         {
-            var list = new List<Cat>() { new Cat(){ Id = 1, Url = "Allo"}}.AsEnumerable();
+            var list = _catsService.GetAll();
             return Ok(list);
         }
     }

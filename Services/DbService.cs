@@ -1,13 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using CatMash.Models;
+using CatMash.Repositories.Cats;
+using CatMash.Services.Cats;
 using Dapper;
 using Microsoft.Data.Sqlite;
 
-namespace CatMash.Repositories.Cats
+namespace CatMash.Services
 {
-    public class CatsRepository : ICatsRepository
+    public class DbService : IDbService
     {
+        private readonly ICatsService _catsService;
+        public DbService(ICatsService catsService)
+        {
+            _catsService = catsService;
+        }
+
         public SqliteConnection GetConnection()
         {
             var connectionStringBuilder = new SqliteConnectionStringBuilder();
@@ -15,32 +24,35 @@ namespace CatMash.Repositories.Cats
             return new SqliteConnection(connectionStringBuilder.ConnectionString);
         }
 
-        public IEnumerable<Cat> GetAllCats()
+        public void CreateTables()
         {
-            using (var connection = GetConnection())
-            {
-                return connection.Query<Cat>("SELECT * FROM Cats");
-            }
-        }
 
-        public void InsertIfDoesNotExistCat(Cat cat)
-        {
             var sql = @"
-            INSERT OR IGNORE INTO Cats(Id, Url)
-            VALUES(@Id, @Url)
+                CREATE TABLE IF NOT EXISTS Cats(
+                Id Varchar,
+                Url Varchar,
+                UNIQUE(Id)
+                );
+                CREATE TABLE IF NOT EXISTS Votes(
+                CatId Varchar,
+                NbrOfVotes int,
+                UNIQUE(CatId)
+                );
             ";
             using (var connection = GetConnection())
             {
                 connection.Open();
                 var command = connection.CreateCommand();
                 command.CommandText = sql;
-                command.Parameters.AddWithValue("@Id", cat.Id);
-                command.Parameters.AddWithValue("@Url", cat.Url);
                 command.ExecuteNonQuery();
-
                 connection.Close();
             }
+
         }
 
+        public void PopulateDatabase()
+        {
+            _catsService.PopulateCats();
+        }
     }
 }
