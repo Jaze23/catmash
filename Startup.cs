@@ -1,4 +1,5 @@
 using CatMash.Services;
+using CatMash.Services.Cats;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
