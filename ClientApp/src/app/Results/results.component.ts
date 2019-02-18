@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import Cat from '../Models/Cat';
+import { CatService } from '../Services/cat.service';
 
 @Component({
   selector: 'app-results',
@@ -6,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
-  constructor() { }
+  public cats: Cat[];
+  constructor(private catService: CatService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.catService.getAllCats().subscribe((cats: Cat[]) => {
+      this.cats = cats;
+    });
+  }
 }

@@ -1,3 +1,9 @@
 <div>
   <h1>Vote for the cutest cat !</h1>
+  <div class="versus">
+    <div *ngFor="let cat of cats" class="vote-img-btn">
+      <img class="img-thumbnail cat-img-vote" [src]="cat.url" /><br>
+      <button class="btn btn-success" (click)="vote(cat)">Vote&nbsp;<i class="far fa-heart"></i></button>
+    </div>
+  </div>
 </div>

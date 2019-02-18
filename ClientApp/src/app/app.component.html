@@ -3,8 +3,8 @@
     <div class="inner">
       <h3 class="masthead-brand">CatMash&nbsp;<i class="fas fa-cat"></i></h3>
       <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" href="#">Results</a>
-        <a class="nav-link" href="#">Vote</a>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Results</a>
+        <a routerLink="/vote" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Vote</a>
       </nav>
     </div>
   </header>
